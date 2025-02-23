@@ -41,6 +41,12 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
+    #local apps
+    'predictions',
+    'profiles',
+    'tests',
+    'users',
+
     # Third party apps
     'rest_framework',
     'drf_yasg',
@@ -216,4 +222,22 @@ SWAGGER_SETTINGS = {
     'DEFAULT_PAGINATOR_INSPECTORS': [
         'drf_yasg.inspectors.CoreAPICompatInspector',
     ],
+}
+
+LOGGING = {
+    "version": 1,
+    "disable_existing_loggers": False,
+    "formatters": {
+        "verbose": {
+            "format": "%(levelname)s %(name)-12s %(asctime)s %(module)s %(process)d %(thread)d %(message)s"
+        }
+    },
+    "handlers": {
+        "console": {
+            "level": "DEBUG",
+            "class": "logging.StreamHandler",
+            "formatter": "verbose",
+        }
+    },
+    "root": {"level": "INFO", "handlers": ["console"]},
 }
