@@ -30,12 +30,26 @@ ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS', '').split(',')
 # Application definition
 
 INSTALLED_APPS = [
+    # Jazzmin debe ir antes de django.contrib.admin
     'jazzmin',
+
+    # Django apps por defecto
+    'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
+    # Third party apps
+    'rest_framework',
+    'drf_yasg',
+    'django_filters',
+    'django_countries',
+    'phonenumber_field',
+    'django_celery_beat',
+    'cloudinary',
+    'taggit',
 ]
 
 MIDDLEWARE = [
@@ -119,18 +133,87 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
 
 STATIC_URL = 'static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'static')
+]
+
+# Media files
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-
 JAZZMIN_SETTINGS = {
-    "site_title": "CLI Café",
-    "site_header": "CLI Café",
-    "site_brand": "CLI Café",
-    "site_logo": "/images/CLICAFE.png",
-    "login_logo": "/images/CLICAFE.png",
+    "site_title": "Salud en el postparto",
+    "site_header": "Salud en el postparto",
+    "site_brand": "Salud en el postparto",
+    "site_logo": "/images/saludenposparto.png",
+    "login_logo": "/images/saludenposparto.png",
     "welcome_sign": "Bienvenido al sistema",
+    "copyright": "Salud en el postparto",
+    "search_model": ["auth.User", "auth.Group"],
+    "user_avatar": None,
+    # Más configuraciones según necesites
+}
+
+JAZZMIN_UI_TWEAKS = {
+    "navbar_small_text": False,
+    "footer_small_text": False,
+    "body_small_text": False,
+    "brand_small_text": False,
+    "brand_colour": "navbar-success",
+    "accent": "accent-teal",
+    "navbar": "navbar-dark",
+    "no_navbar_border": False,
+    "navbar_fixed": False,
+    "layout_boxed": False,
+    "footer_fixed": False,
+    "sidebar_fixed": False,
+    "sidebar": "sidebar-dark-success",
+    "sidebar_nav_small_text": False,
+    "sidebar_disable_expand": False,
+    "sidebar_nav_child_indent": False,
+    "sidebar_nav_compact_style": False,
+    "sidebar_nav_legacy_style": False,
+    "sidebar_nav_flat_style": False,
+    "theme": "default",
+    "dark_mode_theme": None,
+    "button_classes": {
+        "primary": "btn-primary",
+        "secondary": "btn-secondary",
+        "info": "btn-info",
+        "warning": "btn-warning",
+        "danger": "btn-danger",
+        "success": "btn-success"
+    }
+}
+
+# Swagger Settings
+SWAGGER_SETTINGS = {
+    'SECURITY_DEFINITIONS': {
+        'Bearer': {
+            'type': 'apiKey',
+            'name': 'Authorization',
+            'in': 'header'
+        }
+    },
+    'USE_SESSION_AUTH': False,
+    'PERSIST_AUTH': True,
+    'REFETCH_SCHEMA_WITH_AUTH': True,
+    'REFETCH_SCHEMA_ON_LOGOUT': True,
+    'DEFAULT_INFO': 'api.urls.api_info',
+    'DISPLAY_OPERATION_ID': False,
+    'DEFAULT_MODEL_RENDERING': 'example',
+    'TAGS_SORTER': 'alpha',
+    'OPERATIONS_SORTER': 'alpha',
+    'DOC_EXPANSION': 'none',
+    'DEEP_LINKING': True,
+    'SHOW_EXTENSIONS': True,
+    'DEFAULT_PAGINATOR_INSPECTORS': [
+        'drf_yasg.inspectors.CoreAPICompatInspector',
+    ],
 }
