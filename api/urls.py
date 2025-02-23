@@ -9,9 +9,9 @@ from rest_framework import permissions
 # Configuración del Schema de Swagger
 schema_view = get_schema_view(
     openapi.Info(
-        title="Salud en le postparto",
+        title="Salud en el postparto",
         default_version='v2',
-        description="Documentación de Salud en le postparto",
+        description="Documentación de Salud en el postparto",
         terms_of_service="https://www.google.com/policies/terms/",
         contact=openapi.Contact(email="contacto@saludenposparto.org"),
         license=openapi.License(name="BSD License"),
@@ -25,8 +25,8 @@ urlpatterns = [
     # ... tus otras URLs
 
 # URLs de Swagger
-    path('swagger<format>/', schema_view.without_ui(cache_timeout=0), name='schema-json'),
-    path('swagger/', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
-    path('redoc/', schema_view.with_ui('redoc', cache_timeout=0), name='schema-redoc'),
+    path('api/v2/swagger<format>/', schema_view.without_ui(cache_timeout=0), name='schema-json'),
+    path('api/v2/swagger/', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
+    path('api/v2/redoc/', schema_view.with_ui('redoc', cache_timeout=0), name='schema-redoc'),
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT) + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
